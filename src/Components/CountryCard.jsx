@@ -1,7 +1,7 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 
-function CountryCard({setCapital, capital}) {
+function CountryCard({ setCapital, capital }) {
     const [countryName, setCountryName] = useState("")
     const [countryApiRes, setCountryApiRes] = useState(null)
     const [error, setError] = useState("")
@@ -52,7 +52,10 @@ function CountryCard({setCapital, capital}) {
                         value={countryName}
                         placeholder="Enter country name..."
                     />
-                    <button onClick={countryData}>Search</button>
+                    <button onClick={() => {
+                        countryData()
+                        setCountryName("")
+                    }}>Search</button>
                 </form>
             </div>
 

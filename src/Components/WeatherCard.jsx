@@ -3,6 +3,9 @@ import React, { useEffect, useState } from 'react';
 
 function WeatherCard({ capital }) {
     const [weatherData, setWeatherData] = useState(null);
+    const [cityWeatherData, setCityWeatherData] = useState(null);
+    const [capitalData, setCapitalData] = useState(null);
+    const [userCityName, setUserCityName] = useState("");
     const APIKEY = "e4a43e831ce619939291686ce56ecc5b";
 
     useEffect(() => {
@@ -25,7 +28,7 @@ function WeatherCard({ capital }) {
 
                     try {
                         const response = await axios.get(
-                            `https://api.openweathermap.od rg/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${APIKEY}&units=metric`
+                            `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${APIKEY}&units=metric`
                         );
                         setWeatherData(response.data);
                     } catch (err) {
@@ -44,26 +47,62 @@ function WeatherCard({ capital }) {
         }
     }, [capital]);
 
+    async function cityData() {
+        if (!userCityName) return;
+        try {
+            let res = await fetch(
+                `https://api.openweathermap.org/data/2.5/weather?q=${userCityName}&appid=${APIKEY}&units=metric`
+            );
+            let resJSON = await res.json();
+            if (resJSON.cod === 200) {
+                setCityWeatherData(resJSON);
+            } else {
+                alert("City not found");
+            }
+        } catch (err) {
+            console.error("Error fetching city weather:", err);
+        }
+        setUserCityName("");
+    }
+
+    const displayData = cityWeatherData || weatherData;
+
     return (
         <div className="weather-card">
-            {weatherData ? (
+            <div className="input-section">
+                <form
+                    onSubmit={(e) => {
+                        e.preventDefault();
+                        cityData();
+                    }}
+                    style={{ display: "flex", marginBottom: "10px" }}
+                >
+                    <input
+                        type="text"
+                        placeholder="Enter city name..."
+                        value={userCityName}
+                        onChange={(e) => setUserCityName(e.target.value)}
+                    />
+                    <button type="submit">Search</button>
+                </form>
+            </div>
+
+            {displayData && (
                 <>
-                    <h1 className="city">{weatherData.name}</h1>
-                    <h2 className="temp">{Math.round(weatherData.main.temp)}°C</h2>
-                    <p className="desc">{weatherData.weather[0].description}</p>
+                    <h1 className="city">{displayData.name}</h1>
+                    <h2 className="temp">{Math.round(displayData.main.temp)}°C</h2>
+                    <p className="desc">{displayData.weather[0].description}</p>
                     <img
                         className="icon"
-                        src={`http://openweathermap.org/img/wn/${weatherData.weather[0].icon}@2x.png`}
+                        src={`http://openweathermap.org/img/wn/${displayData.weather[0].icon}@2x.png`}
                         alt="weather icon"
                     />
                     <p className="details">
-                        Humidity: {weatherData.main.humidity}%<br />
-                        Wind: {weatherData.wind.speed} m/s
+                        Humidity: {displayData.main.humidity}%<br />
+                        Wind: {displayData.wind.speed} m/s
                     </p>
                     <p className="date">{new Date().toLocaleDateString()}</p>
                 </>
-            ) : (
-                <p className="loading">Fetching weather data...</p>
             )}
         </div>
     );
