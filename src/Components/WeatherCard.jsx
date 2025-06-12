@@ -68,7 +68,7 @@ function WeatherCard({ capital }) {
     const displayData = cityWeatherData || weatherData;
 
     return (
-        <div className="weather-card">
+        <div className="card weather-card">
             <div className="input-section">
                 <form
                     onSubmit={(e) => {

@@ -1,149 +1,168 @@
+/* Reset & Base */
+/* App.css */
+
+/* Reset Styles */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-}
-
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 body {
-  margin: 0;
-  padding: 0;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: linear-gradient(135deg, #89f7fe 0%, #66a6ff 100%);
-  height: auto;
+  background: linear-gradient(to right, #002b4f, #005b96);
+  color: #ffffff;
+  min-height: 100vh;
   display: flex;
-  align-items: center;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 40px 20px;
+}
+
+/* Container Centering */
+#root {
+  width: 100%;
+  display: flex;
   justify-content: center;
 }
 
-.weather-card {
-  background-color: #ffffffdd;
-  width: 300px;
-  padding: 30px;
-  border-radius: 16px;
-  box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.2);
-  text-align: center;
-}
-
-.city {
-  font-size: 28px;
-  font-weight: bold;
-  color: #333;
-}
-
-.temp {
-  font-size: 50px;
-  margin: 10px 0;
-  color: #0077b6;
-}
-
-.desc {
-  text-transform: capitalize;
-  font-size: 18px;
-  color: #555;
-  font-weight: bold;
-}
-
-.myInput {
-  padding: 10px 5px;
-  margin: 20px 0;
-  background-color: transparent;
-  color: black;
-  border: 1px solid black;
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
-  border-radius: 4px;
-}
-
-.icon {
-  width: 100px;
-  height: 100px;
-}
-
-.details {
-  font-size: 14px;
-  margin-top: 10px;
-  color: #444;
-}
-
-.date {
-  margin-top: 15px;
-  font-size: 14px;
-  color: #777;
-}
-
-.loading {
-  font-size: 18px;
-  color: #333;
-}
-
-h2,
-p {
-  color: black;
-}
-
+/* Card Style (If you use a general .card class) */
 .card {
+  background-color: #1e1f2f;
+  padding: 32px;
+  border-radius: 16px;
+  width: 100%;
   max-width: 500px;
-  margin: 30px auto;
-  padding: 20px;
-  border: 1px solid #ddd;
-  border-radius: 12px;
-  text-align: center;
-  background-color: #f9f9f9;
-  font-family: Arial, sans-serif;
-  color: black;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease-in-out;
 }
 
-.input-section {
-  display: flex;
-  gap: 10px;
-  justify-content: center;
-  margin-bottom: 20px;
+.card:hover {
+  transform: translateY(-4px);
 }
 
-input {
-  padding: 8px;
-  width: 70%;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+/* Input + Button Styles */
+input[type="text"] {
+  padding: 12px;
+  border-radius: 8px;
+  border: none;
+  font-size: 16px;
+  width: 100%;
+  background-color: #2d2f3f;
+  color: #fff;
+}
+
+input[type="text"]::placeholder {
+  color: #aaa;
 }
 
 button {
-  padding: 8px 16px;
-  background-color: #0077cc;
-  color: white;
+  padding: 12px 20px;
+  margin-left: 12px;
+  background-color: #ff9800;
   border: none;
-  border-radius: 4px;
+  border-radius: 8px;
+  color: white;
+  font-weight: bold;
+  font-size: 16px;
   cursor: pointer;
+  transition: background-color 0.2s ease;
 }
 
 button:hover {
-  background-color: #005fa3;
+  background-color: #e67e00;
 }
 
+/* Loading, Error, Output Text */
 .loading {
-  color: #888;
-  margin-top: 10px;
+  margin-top: 20px;
+  color: #03a9f4;
+  text-align: center;
+  font-size: 18px;
 }
 
 .error {
-  color: red;
-  margin-top: 10px;
-}
-
-.country-details {
   margin-top: 20px;
-  text-align: left;
+  color: #ff5252;
+  text-align: center;
+  font-size: 16px;
 }
 
-.flag {
-  width: 100px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  margin-bottom: 10px;
+/* Country Details Section */
+.country-details {
+  margin-top: 32px;
+  background-color: #2a2c3a;
+  border-radius: 12px;
+  padding: 24px;
+  color: white;
+}
+
+.country-details img.flag {
+  width: 100%;
+  max-width: 300px;
+  height: auto;
+  border-radius: 8px;
+  margin: 0 auto 16px;
+  display: block;
+}
+
+.country-details h2 {
+  color: #00bcd4;
+  font-size: 24px;
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+.country-details p {
+  font-size: 16px;
+  margin: 6px 0;
+  line-height: 1.5;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .temp {
+    font-size: 42px;
+  }
+
+  .city {
+    font-size: 24px;
+  }
+
+  .desc {
+    font-size: 16px;
+  }
+
+  .card,
+  .weather-card {
+    padding: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .input-section {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  input,
+  button {
+    width: 100%;
+  }
+
+  .temp {
+    font-size: 38px;
+  }
+
+  .city {
+    font-size: 22px;
+  }
+
+  .desc {
+    font-size: 15px;
+  }
+
+  .flag {
+    width: 60%;
+  }
 }

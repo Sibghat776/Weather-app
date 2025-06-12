@@ -3,7 +3,7 @@ import './App.css';
 import axios from 'axios';
 import CountryCard from './Components/CountryCard';
 import WeatherCard from './Components/WeatherCard';
-import { Link, Route, Routes } from 'react-router-dom';
+import { Link, NavLink, Route, Routes } from 'react-router-dom';
 
 function App() {
 
@@ -12,20 +12,30 @@ function App() {
     <>
       <div style={{
         display: "flex",
-        gap: "100px",
+        gap: "1rem",
         justifyContent: "center",
-        flexWrap: "wrap"
+        flexWrap: "wrap",
+        flexDirection: 'column'
       }}>
-        <Link to="/country">
-
-          <button path="/country">Country</button>
-        </Link>
-        {/* <Link to={<WeatherCard capital={capital} />}>
-
-          <button path="/weather">Weather</button>
-        </Link> */}
+        <div style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: 'center',
+          gap: "2rem",
+        }}>
+          <NavLink to="/country" className={({ isActive }) => ""}>
+            {({ isActive }) => (
+              <button path="/country" className={ isActive ? "active" : "button"}>Country</button>
+            )}
+          </NavLink>
+          <NavLink className={({ isActive }) => ""} to="/weather">
+            {({ isActive }) => (
+              <button className={isActive ? "active" : "button"} path="/weather">Weather</button>
+            )}
+          </NavLink>
+        </div>
         <Routes>
-          <Route path="/country" element={<CountryCard setCapital={setCapital} capital={capital} />} />
+          <Route path="/country" element={<CountryCard setCapital={setCapital} />} />
           <Route path="/weather" element={<WeatherCard capital={capital} />} />
         </Routes>
         {/* <CountryCard setCapital={setCapital} capital={capital} /> */}
